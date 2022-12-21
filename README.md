@@ -6,4 +6,4 @@ Il progetto è stato realizzato dal T33, in particolare dagli studenti:
 
 Nella realizzazione del progetto è stato utilizzato node.js e vari linguaggi tra cui javascript, html, css, ...
 
-Il link del deployment è: 
+Il link del deployment è: https://staybusyy.herokuapp.com
