@@ -1,0 +1,611 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Stay Busy",
+      "description": "Stay Busy API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Offerers",
+        "description": "API for offerers in the system"
+      },
+      {
+        "name":"Students",
+        "description": "API for students in the system"
+      },
+      {
+        "name":"Announcements",
+        "description": "API for announcements in the system"
+      },
+      {
+        "name":"ReferenceOffererers",
+        "description": "API for reference of the offerers in the system"
+      },
+      {
+        "name":"ReferenceStudents",
+        "description": "API for reference of the students in the system"
+      },
+      {
+        "name":"Availabilities",
+        "description": "API for availabilities in the system"
+      }
+    ],
+    "paths": {
+        "/api/offerer/emailO":{
+            "get":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Get one offerer by email",
+                "parameters": [
+                {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "string",
+                        "example": "prova@gmail.com"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer": {
+            "post": {
+                "tags": [
+                    "Offerers"
+                ],
+                "summary": "Create a new offerer in Stay Busy system",
+                "parameters": [
+                    {
+                        "name": "parameterstosent",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example":{
+                            "typeofuser" : false,
+                            "termsaccepted" : true,
+                            "name" : "Prova Nome",
+                            "surname" : "Prova Cognome",
+                            "email" : "prova@gmail.com",
+                            "password" : "Prova-1990",
+                            "confirmationpassword" : "Prova-1990",
+                            "idtelegram" : "",
+                            "description" : ""
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/login":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Find if there is a offerer with the inserted credentials, if the request success, login can be done",
+                "parameters": [
+                    {
+                            "name": "parameterstosent",
+                            "in": "body",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "object",
+                            "example": {
+                                "email" : "prova@gmail.com",
+                                "password" : "Prova-1990"
+                            }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/api/offerer/idtelegram":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Change the ID Telegram of the offerer",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    },
+                    {
+                        "name": "idtelegram",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example": {
+                            "idtelegram" : "ProvaID"
+                        }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/description":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Change the description of the offerer",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    },
+                    {
+                        "name": "description",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example": {
+                            "description" : "Prova Descrizione"
+                        }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/name":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Change the name of the offerer",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example": {
+                            "name" : "Prova"
+                        }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/surname":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Change the surname of the offerer",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    },
+                    {
+                        "name": "surname",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example": {
+                            "surname" : "Prova"
+                        }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/password":{
+            "post":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Change the password of the offerer",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "object",
+                        "example": {
+                            "old" : "Prova-1990",
+                            "new" : "Prova-2020",
+                            "newnew" : "Prova-2020"
+                        }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/offerer/email":{
+            "delete":{
+                "tags" : [
+                    "Offerers"
+                ],
+                "summary" : "Delete one offerer by email, if there are active announcements, it cancels the announcements",
+                "parameters": [
+                    {
+                            "name": "email",
+                            "in": "query",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "string",
+                            "example": "prova@gmail.com"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Offerers"
+                        }
+                    },
+                    "404": {
+                        "description": "NOT OK",
+                        "schema": {
+                            "$ref":"#/definitions/Offerers"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/announcement/email":{
+            "get":{
+                "tags" : [
+                    "Announcements"
+                ],
+                "summary" : "Get the announcements of an offerer by email",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "string",
+                        "example": "prova@gmail.com"
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/announcement":{
+            "post":{
+                "tags" : [
+                    "Announcements"
+                ],
+                "summary" : "Create an announcement of an offerer by email",
+                "parameters": [
+                    {
+                            "name": "parameterstosent",
+                            "in": "body",
+                            "description": "Parameters to be sent",
+                            "required": true,
+                            "type": "object",
+                            "example": {
+                                "hour1" : 18,
+                                "hour2" : 20,
+                                "minutes1" : 30,
+                                "minutes2" : 30,
+                                "day" : 15,
+                                "month" : 12,
+                                "year" : 2023,
+                                "typeofwork" : "Prova annuncio",
+                                "city" : "Prova città",
+                                "typeofpayment" : "contanti",
+                                "description" : "",
+                                "offereremail" : "prova@gmail.com"
+                            }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Announcement"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/announcementD":{
+            "delete":{
+                "tags" : [
+                    "Announcements"
+                ],
+                "summary" : "Delete the announcements of an offerer by email",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Parameters to be sent",
+                        "required": true,
+                        "type": "string",
+                        "example": "prova@gmail.com"
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Announcement"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "definitions": {
+        "Offerers": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "name" : {"type" : "string", "required" : "true"},
+                "surname" : {"type" : "string", "required" : "true"},
+                "email" : {"type" : "string", "required" : "true"},
+                "idtelegram" : {"type" : "string", "default" : ""}, 
+                "confirmedaccount" : {"type" : "boolean", "default" : "false"},
+                "password" : {"type" : "string", "required" : "true"},
+                "relatedStudentsEmail" : ["string"],
+                "averagevotes" : {"type" : "number", "default" : 0},
+                "description" : {"type" : "string", "default" : ""}
+            }
+        },
+        "Students": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "name" : {"type" : "string", "required" : "true"},
+                "surname" : {"type" : "string", "required" : "true"},
+                "email" : {"type" : "string", "required" : "true"},
+                "city" : {"type" : "string", "required" : "true"},
+                "idtelegram" : {"type" : "string", "default" : ""}, 
+                "confirmedaccount" : {"type" : "boolean", "default" : "false"},
+                "university" : {
+                    "nameuni" : {"type" : "string", "required" : "true"},
+                    "cityuni" : {"type" : "string", "required" : "true"},
+                    "regionuni" : {"type" : "string", "required" : "true"}
+                },
+                "countdoneservices" : {"type" : "number", "default" : "0"},
+                "countdeclinedservices" : {"type" : "number", "default" : "0"},
+                "countdeclinedservicesbefore24h" : {"type" : "number", "default" : "0"},
+                "averagevotes" : {"type" : "number", "default" : "0"},
+                "servicetodo" : ["string"],
+                "servicecandidate" : ["string"],
+                "servicecronology" : ["string"],
+                "description" : {"type" : "string", "default" : ""}
+            }
+        },
+        "Announcements": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "typeofwork" : {"type" : "string", "required" : "true"},
+                "city" : {"type" : "string", "required" : "true"},
+                "date" : {
+                    "day" : {"type" : "number", "required" : "true"},
+                    "month" : {"type" : "number", "required" : "true"},
+                    "year" : {"type" : "number", "required" : "true"}
+                },
+                "starttime" : {
+                    "hour" : {"type" : "number", "required" : "true"},
+                    "minutes" : {"type" : "number", "required" : "true"}
+                },
+                "endttime" : {
+                    "hour" : {"type" : "number", "required" : "true"},
+                    "minutes" : {"type" : "number", "required" : "true"}
+                },
+                "typeofpayment": {
+                    "type": {"type" : "string", "default" : ""},
+                    "enum" : ["contanti","paypal"]
+                },
+                "description" : {"type" : "string", "default" : ""},
+                "candidates" : [{
+                            "emailcandidate" : {"type" : "string"},
+                            "outcometype": {
+                                "type": {"type" : "string"},
+                                "enum" : ["accettato","respinto","in attesa"],
+                                "default": "in attesa"
+                            }
+                            }],
+                "offereremail" : {"type" : "string", "required" : "true"},
+                "workerstudent" : {"type" : "string", "default" : ""}
+            }
+        },
+        "ReferenceOfferers": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "vote" : {"type" : "number", "required" : "true"},
+                "review" : {"type" : "string"},
+                "studentemail" : {"type" : "string", "required" : "true"},
+                "offereremail" : {"type" : "string", "required" : "true"}
+            }
+        },
+        "ReferenceStudents": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "vote" : {"type" : "number", "required" : "true"},
+                "review" : {"type" : "string"},
+                "offereremail" : {"type" : "string", "required" : "true"},
+                "studentemail" : {"type" : "string", "required" : "true"}
+            }
+        },
+        "Availabilities": {
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "date" : {
+                    "day" : {"type" : "number", "required" : "true"},
+                    "month" : {"type" : "number", "required" : "true"},
+                    "year" : {"type" : "number", "required" : "true"}
+                },
+                "starttime" : {
+                    "hour" : {"type" : "number", "required" : "true"},
+                    "minutes" : {"type" : "number", "required" : "true"}
+                },
+                "endttime" : {
+                    "hour" : {"type" : "number", "required" : "true"},
+                    "minutes" : {"type" : "number", "required" : "true"}
+                },
+                "frequencytype": {
+                    "type": "string",
+                    "enum" : ["ogni giorno","ogni settimana","ogni mese", "ogni anno", ""]
+                },
+                "studentemail" : {"type" : "string", "required" : "true"}
+            }
+        }
+    }
+  }

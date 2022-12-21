@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <style>
+      #btn2{
+        background-color: #6a6a6a0a;
+        border-left-style: solid;
+        border-color: #21C9D3;
+  
+        margin-top: 10px;
+      } 
+
+      h1{
+        text-align: center !important;
+        margin-left: 0px !important;
+      }
+
+      .card{
+        display: flex; 
+        justify-content: center;
+      }
+
+      
+    </style>
+    <link rel="stylesheet" href="./styleSite.css" type="text/css">
+
+</head>
+<body>
+
+  <div class="boxTop">
+    <div class="boxTopLeft">
+      <button id="btn4" class="topButton"><img src="StayBusy.png" width="50" height="50"></button>
+    </div>
+    <div class="boxTopRight">
+      <button id="btn5" class="topButton"><img src="cronology.png" width="38" height="38"></button>
+      <button id="btn3" class="topButton"><img src="profile.png" width="38" height="38"></button>
+    </div>
+    
+  </div>
+
+  <div class="boxBottom">
+
+    <div class="boxLeft">
+      <button id="btn1" class="leftMenu">Annunci di lavoro attivi</button>
+      <button id="btn2" disabled class="leftMenu">Crea nuovo annuncio</button>
+    </div>
+
+    <div class="card">
+      <div class="inserimentoDati">
+        <h1 class="titolo">Crea un nuovo annuncio</h1> 
+        <div class="scrollbar" id="style-1">    
+        <form id="form">
+          <div class="datiFormLayout">
+            <h2>Tipo di lavoro</h2>
+            <input type="text" name="typeofwork" id="typeofwork" placeholder="Inserisci il tipo di lavoro" class="text"><br>
+            <h2>Luogo</h2>
+            <input type="text" name="city" id="city" placeholder="Inserisci il luogo" class="text"><br>
+            <h2>Data</h2>
+            <div class="giorno">
+              <input type="number" name="day" id="day" placeholder="Inserisci giorno" class="text">
+              <input type="number" name="month" id="month" placeholder="Inserisci mese" class="text">
+              <input type="number" name="year" id="year" placeholder="Inserisci anno" class="text">
+            </div>
+            <h2>Ora</h2>
+            <div class="oraInizio">
+              <input type="number" name="hour1" id="hour1" placeholder="Inserisci ora inizio" class="text">
+              <input type="number" name="minutes1" id="minutes1" placeholder="Inserisci minuti inizio" class="text">
+            </div>
+            <div class="oraFine">
+              <input type="number" name="hour2" id="hour2" placeholder="Inserisci ora fine" class="text">
+              <input type="number" name="minutes2" id="minutes2" placeholder="Inserisci minuti fine" class="text">
+            </div>
+            <h2>Tipo di pagamento</h2>
+            <select name="typeofpayment" id="typeofpayment" class="text">
+              <option value="null" disabled="disabled" selected="selected">Seleziona il tipo di pagamento</option>  
+              <option value="contanti">Contanti</option>
+              <option value="paypal">Paypal</option>
+            </select><br>
+            <h2>Descrizione del lavoro</h2>
+            <textarea id="description" name="description" placeholder="Inserisci descrizione del lavoro" cols="30" rows="5"></textarea>
+          </div>
+          <div class="bottoniGestioneNuovoAnnuncio">
+            <button id="btn6" class="button greyButton">Annulla</button>
+            <button type="submit" id="btn7" class="button blueButton">Crea annuncio</button>
+          </div>
+          
+        </form>
+      </div>
+      </div>
+      
+    </div> 
+
+  </div>
+
+    
+  <script>
+
+    var url = window.location;
+
+    var access_token = new URLSearchParams(url.search).get('token');
+    var email = new URLSearchParams(url.search).get('email');
+
+
+    btn7.addEventListener('click', function(e){
+        e.preventDefault();
+  
+        const prePayload = new FormData(form);
+        const payload = new URLSearchParams(prePayload);
+        payload.append('offereremail', email);
+        console.log([...payload]);
+
+        fetch('../api/announcement',{
+            method : "POST",
+            body : payload
+            })
+            .then(res => {
+              return res.json().then(data => {
+                console.log(data);
+                if(data.message === 'OK'){
+                  alert("Annuncio creato!");
+                  location.replace("../homepage?token=" + access_token+"&email="+email)
+                }else{
+                  alert("Attenzione, credenziali errate");
+                }
+              })
+            })
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        
+      })
+
+    btn1.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token=" + access_token+"&email="+email)
+    });
+
+    btn3.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../profile?token="+access_token+"&email="+email)
+    })
+
+    btn4.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token="+access_token+"&email="+email)
+    })
+
+    btn5.addEventListener('click', function(e){
+      alert("Funzione non ancora implementata");
+    });
+
+    btn6.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token=" + access_token+"&email="+email)
+    }); 
+        
+    </script>
+</body>
+</html>

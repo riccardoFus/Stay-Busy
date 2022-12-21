@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <link rel="stylesheet" href="./styleLoginAndRegistration.css" type="text/css">
+    
+</head>
+<body>
+  <div class="card">
+    <form id="form">
+
+      <h1> Login </h1>
+      <div class="box">
+        <div class="cb-container">
+          <div class="round greenRound">
+            <input type="checkbox" name="student" checked id="student" class="scelta">
+            <label for="checkbox"></label>
+          </div>
+          <p>Studente</p>
+          </div>
+          <div class="cb-container">
+          <div class="round greenRound">
+            <input type="checkbox" name="offerer" id="offerer" class="scelta">
+            <label for="checkbox" onclick="loginOfferente();"></label>
+          </div>
+          <p>Offerente</p>
+        </div>
+      </div>
+      
+      <div class="inserimentoCampi">
+        <h2>Email</h2>
+        <input type="email" placeholder="Inserisci l'email" name="email" id="email" class="text">
+      </div>
+      
+      <br>
+      <div class="PswDim">
+        <p style="text-decoration: underline; cursor: pointer;" onclick="funzNonImplementata();">Password dimenticata?</p2>
+      </div>
+      
+      <button type="submit" id="btn" class="button greenButton">Login</button>
+    </form>
+    <br>
+    <button type="submit" id="btn2" class="button greyButton">Registrati</button>
+    </div>
+
+    <img src="StayBusy.png" width="50" height="50" id="logo" />
+    
+    <script>
+      const form = document.getElementById('form');
+
+      function loginOfferente(){
+        location.replace("../login");
+      }
+      
+      function funzNonImplementata(){
+        alert("Funzionalità non ancora implementata.");
+      }
+
+      btn2.addEventListener('click', function(e){
+        e.preventDefault();
+
+        alert("Attenzione, funzionalità non ancora implementata. E' disponibile solamente il front-end.");
+        
+        location.replace("../registrationStudente");
+      
+      })
+    </script>
+    
+</body>
+</html>

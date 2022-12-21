@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <style>
+        li{
+            font-size: 18px !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="./styleSite.css" type="text/css">
+</head>
+<body onload="showProfile()">
+
+    <div class="boxTop">
+        <div class="boxTopLeft">
+          <button id="btn4" class="topButton"><img src="StayBusy.png" width="50" height="50"></button>
+        </div>
+        <div class="boxTopRight">
+          <button id="btn5" class="topButton"><img src="cronology.png" width="38" height="38"></button>
+          <button id="btn3" class="topButton"><img src="profile.png" width="38" height="38"></button>
+        </div>
+    </div>
+
+    <div class="boxBottom">
+
+        <div class="boxLeft">
+          <button id="btn1" class="leftMenu">Annunci di lavoro attivi</button>
+          <button id="btn2" class="leftMenu">Crea nuovo annuncio</button>
+
+          <p>Profilo personale</p>
+          <button id="btn6" class="leftMenu">Modifica dati personali</button>
+          <button id="btn7" class="leftMenu">Cancella i miei annunci</button>
+          <button id="btn8" class="leftMenu">Cancella profilo</button>
+
+          <p>Dati di accesso</p>
+          
+          <button id="btn10" class="leftMenu">Modifica password</button>
+          <button id="btn9" class="leftMenu">Logout</button>
+        </div>
+    
+        <div class="card">
+          <h1 class="titolo">Profilo personale</h1>
+          <div class="scrollbar" id="style-1">
+            <ul></ul>
+          </div>
+        </div> 
+    
+    </div>
+    
+    <script></script>
+</body>
+<script>
+    var url = window.location;
+
+    var access_token = new URLSearchParams(url.search).get('token');
+    var email = new URLSearchParams(url.search).get('email');
+
+    const showProfile = () => {
+        fetch('../api/offerer/emailO?email='+email)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+        const markup = `
+
+        <div class="profiloPersonale">
+            <img src="profilePic.png" width="150" height="150">
+            <div class="dati">
+                <li>Nome:</li>
+                <li>Cognome:</li>
+                <li>Email:</li>
+                <li>ID Telegram:</li>
+            </div>
+            <div class="daDatabase">
+                <li> ${data.name}</li>
+                <li> ${data.surname}</li>
+                <li> ${data.email}</li>
+                <li> ${data.idtelegram}</li>
+            </div>
+        </div>
+        <div class="profiloPersonale" id="layoutDescrizione">
+            <div class="dati">
+                <li>Descrizione:</li>
+            </div>
+            <div class="daDatabase">
+                <li> ${data.description}</li>
+            </div>
+        </div>
+
+        <div class="statisticheERecensioni">
+            <div class="statistiche">
+                <h3>Statistiche profilo e valutazione</h3>
+                <div class="layoutStatistiche">
+                    <div>
+                        <li>Valutazione:</li>
+                        <br>
+                        <li>Annunci completati:</li>
+                        <li>Annunci annullati:</li>
+                    </div>
+
+                    <div>
+                        <div class="stelle">
+                            <img src="star.png" height="27" width="27" />
+                            <img src="star.png" height="27" width="27" />
+                            <img src="star.png" height="27" width="27" />
+                            <img src="star.png" height="27" width="27" />
+                            <img src="star.png" height="27" width="27" />
+                            <li id="mediaVoti"> ${data.averagevotes}</li>
+                        </div>
+                        <div class="datiStatisticheAnnunci">
+                            
+                            <li style="color: #5CD546; font-weight: bold;">
+                                0
+                                <!-- aggiungere numero annunci completati -->
+                            </li>
+                            <li style="color: #FF0000; font-weight: bold;">
+                                0
+                                <!-- aggiungere numero annunci annullati -->    
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="separatore">
+                <br>    
+            </div>
+            <div class="feedback">
+                
+                <h3>Feedback e recensioni</h3>
+                <div class="scrollbar" id="style-1">
+                    <p>Nessuna recensione disponibile al momento</p> 
+                </div>
+                   
+            </div>
+        </div>
+
+
+         `
+
+        document.querySelector('ul').insertAdjacentHTML('beforeend', markup);
+        })
+    }
+
+    btn1.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token="+access_token+"&email="+email)
+    })
+
+    btn2.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../create?token="+access_token+"&email="+email)
+    })
+
+    btn3.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../profile?token="+access_token+"&email="+email)
+    })
+
+    btn4.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token="+access_token+"&email="+email)
+    })
+
+    btn5.addEventListener('click', function(e){
+      alert("Funzione non ancora implementata");
+    });
+
+    btn6.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../modify?token="+access_token+"&email="+email);
+    })
+
+    btn7.addEventListener('click', function(e){
+      e.preventDefault();
+
+      if(confirm("Sei sicuro di voler cancellare?")){
+        fetch('../api/announcementD?email='+email, {
+            method : "DELETE"
+        })
+        .then(res => {
+            return res.json().then(data => {
+                console.log(data);
+                if(data.message === "NOT OK"){
+                alert("Attenzione, annunci non cancellati");
+                }else{
+                    location.replace("http://localhost:8080/homepage?token=" + access_token+"&email="+email)
+                }
+            })
+            
+        })
+      }else{
+      }
+
+    })
+
+    btn8.addEventListener('click', function(e){
+        e.preventDefault();
+
+        if(confirm("Sei sicuro di voler cancellare?")){
+            fetch('../api/offerer/email?email='+email, {
+            method : "DELETE"
+            })
+            .then(res => {
+                return res.json().then(data => {
+                    console.log(data);
+                    if(data.message === "NOT OK"){
+                    alert("Non puoi cancellare il tuo account, hai degli annunci ancora attivi");
+                    }else{
+                        location.replace('../');
+                    }
+                })
+                
+            })
+      }else{
+      }
+
+    })
+
+    btn9.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("..")
+    })
+
+    btn10.addEventListener('click', function(e){
+        e.preventDefault();
+
+        location.replace("../modifypsw?token="+access_token+"&email="+email);
+    })
+</script>
+</html>

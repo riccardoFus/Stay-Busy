@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <link rel="stylesheet" href="./styleLoginAndRegistration.css" type="text/css">
+  </head>
+
+  <body>
+    <div class="card">
+      <form id="form">
+
+        <h1>Registrazione</h1>
+
+        <div class="box">
+          <div class="cb-container">
+            <div class="round greenRound">
+              <input type="checkbox" name="student" checked id="student" class="scelta">
+              <label for="checkbox"></label>
+            </div>
+            <p>Studente</p>
+          </div>
+          <div class="cb-container">
+            <div class="round Round">
+              <input type="checkbox" name="offerer" id="offerer" class="scelta">
+              <label for="checkbox" onclick="registrationOfferente();"></label>
+            </div>
+            <p>Offerente</p>
+          </div>
+        </div>
+
+        <div class="inserimentoCampi">
+          <h2>Università</h2>
+          <input type="text" placeholder="Inserisci nome università" name="name" id="università" class="text">
+        </div>
+        
+        <br>
+        <div class="TeC">
+
+          <input type="checkbox" name="terms" id="termsGreen" class="terms">
+          <label for="terms">Accetto i <span>Termini e Condizioni</span> e <span>Privacy Policy</span></label>
+        </div>
+        <br>
+        <button type="submit" id="btn" class="button greenButton">Registrati come studente</button>
+      
+      </form>
+      <br>
+      <button type="submit" id="btn2" class="button greyButton">Accedi</button>
+    
+    </div>
+
+    <img src="StayBusy.png" width="50" height="50" id="logo" />
+
+    <script>
+      const form = document.getElementById('form');
+
+      function registrationOfferente(){
+        location.replace("../registration");
+      }
+
+      function funzNonImplementata(){
+        alert("Funzionalità non ancora implementata.");
+      }
+
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+  
+        const prePayload = new FormData(form);
+        const payload = new URLSearchParams(prePayload);
+        console.log([...payload]);
+
+        var checkTerms = document.getElementsByClassName("terms");
+        if(checkTerms.item(0).checked == false){
+          alert("Bisogna accettare i termini e le condizioni");
+        }else{
+          funzNonImplementata();
+        }
+      }
+      )
+
+      btn2.addEventListener('click', function(e){
+        e.preventDefault();
+
+        location.replace("../loginStudente");
+      })
+    
+
+    </script>
+  </body>
+  
+</html>

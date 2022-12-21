@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <style>
+      #btn1{
+        background-color: #6a6a6a0a;
+        border-left-style: solid;
+        border-color: #21C9D3;
+      } 
+
+      .boxBottom{
+        min-height: 85vh !important;
+      }
+
+      .force-overflow{
+        min-width: 97%;
+        max-width: 97%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="./styleSite.css" type="text/css">
+</head>
+<body onload="showAnnouncement()">
+
+  <div class="boxTop">
+    <div class="boxTopLeft">
+      <button id="btn4" class="topButton"><img src="StayBusy.png" width="50" height="50"></button>
+    </div>
+    <div class="boxTopRight">
+      <button id="btn5" class="topButton"><img src="cronology.png" width="38" height="38"></button>
+      <button id="btn3" class="topButton"><img src="profile.png" width="38" height="38"></button>
+    </div>
+    
+  </div>
+
+  <div class="boxBottom">
+
+    <div class="boxLeft">
+      <button id="btn1" disabled class="leftMenu">Annunci di lavoro attivi</button>
+      <button id="btn2" class="leftMenu">Crea nuovo annuncio</button>
+    </div>
+
+    <div class="card">
+      <h1 class="titolo">Annunci di lavoro attivi</h1>
+      <div class="scrollbar" id="style-1">
+        <ul></ul>
+      </div>
+    </div> 
+
+  </div>
+
+  <script>
+
+    var url = window.location;
+
+    var access_token = new URLSearchParams(url.search).get('token');
+    var email = new URLSearchParams(url.search).get('email');
+
+    function funzNonImplementata(){
+        alert("Funzionalità non ancora implementata.");
+    }
+
+    const showAnnouncement = () => {
+    fetch('../api/announcement/email?email='+email)
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      data.forEach(announcement => {
+        fetch('../api/offerer/emailO?email='+announcement.offereremail)
+        .then(res=>{
+          return res.json();
+        })
+        .then(data2 => {
+          let day = "";
+          let month = "";
+          let hour1 = "";
+          let hour2 = "";
+          let minutes1 = "";
+          let minutes2 = "";
+          if(announcement.date.day <= 9){
+            day = '0' + String(announcement.date.day);
+          }else{
+            day = String(announcement.date.day);
+          }
+          if(announcement.date.month <= 9){
+            month = '0' + String(announcement.date.month);
+          }else{
+            month = String(announcement.date.month);
+          }
+          if(announcement.starttime.hour <= 9){
+            hour1 = '0' + String(announcement.starttime.hour);
+          }else{
+            hour1 = String(announcement.starttime.hour);
+          }
+          if(announcement.endttime.hour <= 9){
+            hour2 = '0' + String(announcement.endtime.hour);
+          }else{
+            hour2 = String(announcement.endttime.hour);
+          }
+          if(announcement.starttime.minutes <= 9){
+            minutes1 = '0' + String(announcement.starttime.minutes);
+          }else{
+            minutes1 = String(announcement.starttime.minutes);
+          }
+          if(announcement.endttime.minutes <= 9){
+            minutes2 = '0' + String(announcement.endttime.minutes);
+          }else{
+            minutes2 = String(announcement.endttime.minutes);
+          }
+          const markup = `
+        
+          <div class="annuncio" onclick="funzNonImplementata();">
+            <div class="data">
+              <img src="profilePic.png" width="88" height="88">
+
+              <div class="workDescription">
+                <p id="typeOfWork">${announcement.typeofwork}</p>
+                <p id="offerer">${data2.name} ${data2.surname}</p>
+                
+              
+                <li><span>Data:</span> ${day}/${month}/${announcement.date.year}</li>
+                <li><span>Orario:</span> ${hour1}:${minutes1}-${hour2}:${minutes2}</li>
+                <li><span>Tipo di pagamento:</span> ${announcement.typeofpayment}</li>
+                <li><span>Descrizione:</span> ${announcement.description}</li>
+                
+              </div>
+            </div>
+
+            <div class="datiCalcolatiAnnuncio">
+              <p>Persone che hanno visualizzato l'annuncio: <span>
+                0 (non implementato)
+              </span></p>
+              <p>Richieste di effettuare il lavoro: <span>
+                ${announcement.candidates.length}
+              </span></p>
+              <p>Stato: <span>
+                Non ancora assegnato (non implementato)
+              </span></p>
+            </div>
+
+          </div>`
+
+          document.querySelector('ul').insertAdjacentHTML('beforeend', markup);
+        })
+      });
+    })
+    .catch(error => console.log(error));
+    }
+
+    btn1.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token="+access_token+"&email="+email)
+    })
+
+    btn2.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../create?token="+access_token+"&email="+email)
+    })
+
+    btn3.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../profile?token="+access_token+"&email="+email)
+    })
+
+    btn4.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../homepage?token="+access_token+"&email="+email)
+    })
+
+    btn5.addEventListener('click', function(e){
+      alert("Funzione non ancora implementata");
+    });
+
+  </script>
+
+  
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <link rel="stylesheet" href="./styleLoginAndRegistration.css" type="text/css">
+  </head>
+
+  <body>
+    <div class="card">
+      <form id="form">
+
+        <h1>Registrazione</h1>
+
+        <div class="box">
+          <div class="cb-container">
+            <div class="round">
+              <input type="checkbox" name="student" id="student" class="scelta" onclick="checkedOnClick(this);">
+              <label for="checkbox" onclick="registrationStudente()"></label>
+            </div>
+            <p>Studente</p>
+          </div>
+          <div class="cb-container">
+            <div class="round blueRound">
+              <input type="checkbox" name="offerer" checked id="offerer" class="scelta" onclick="checkedOnClick(this);">
+              <label for="checkbox"></label>
+            </div>
+            <p>Offerente</p>
+          </div>
+        </div>
+
+        <div class="inserimentoCampi">
+          <h2>Nome</h2>
+          <input type="text" placeholder="Inserisci nome" name="name" id="name" class="text">
+          <br>
+          <h2>Cognome</h2>
+          <input type="text" placeholder="Inserisci cognome" name="surname" id="surname" class="text">
+          <br>
+          <h2>Email</h2>
+          <input type="email" placeholder="Inserisci e-mail" name="email" id="email" class="text">
+          <br>
+          <div class="passwordLayout">
+            <div>
+              <h2>Password</h2>
+              <input type="password" placeholder="Inserisci password" name="password" id="password" class="textPassword">
+            </div>
+            <div>
+              <h2>Conferma password</h2>
+              <input type="password" placeholder="Conferma password" name="confirmationpassword" id="confirmationpassword" class="textPassword">
+            </div>
+          </div>
+          <h2>ID Telegram</h2>
+          <input type="text" placeholder="Inserisci ID Telegram" name="idtelegram" id="idtelegram" class="text">
+        </div>
+        
+        <br>
+        <div class="TeC">
+
+          <input type="checkbox" name="terms" id="termsBlue" class="terms">
+          <label for="terms">Accetto i <span>Termini e Condizioni</span> e <span>Privacy Policy</span></label>
+        </div>
+        <br>
+        <button type="submit" id="btn" class="button blueButton">Registrati come utente</button>
+      
+      </form>
+      <br>
+      <button type="submit" id="btn2" class="button greyButton">Accedi</button>
+    
+    </div>
+
+    <img src="StayBusy.png" width="50" height="50" id="logo" />
+
+    <script>
+      const form = document.getElementById('form');
+
+      function registrationStudente(){
+        alert("Attenzione, funzionalità non ancora implementata. E' disponibile solamente il front-end.");
+        location.replace("../registrationStudente");
+      }
+  
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+  
+        const prePayload = new FormData(form);
+        const payload = new URLSearchParams(prePayload);
+        console.log([...payload]);
+
+        var checkTerms = document.getElementsByClassName("terms");
+        if(checkTerms.item(0).checked == false){
+          alert("Bisogna accettare i termini e le condizioni");
+        }else{
+          fetch('../api/offerer',{
+            method : "POST",
+            body : payload
+            })
+            .then(res => {
+              return res.json().then(data => {
+                if(data.message === 'OK'){
+                  alert("Benvenuto in Stay Busy, ora effettua il login!");
+                  location.replace("..")
+                }else{
+                  alert("Attenzione, i dati inseriti non rispettano gli standard imposti dal sito.");
+                }
+              })
+            })
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+          }
+        }
+            
+      )
+
+      btn2.addEventListener('click', function(e){
+        e.preventDefault();
+
+        location.replace("..")
+      })
+
+    </script>
+  </body>
+  
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <title>Stay Busy</title>
+
+    <link rel="stylesheet" href="./styleLoginAndRegistration.css" type="text/css">
+
+</head>
+<body>
+  <div class="card">
+    <form id="form">
+      <!-- https://codepen.io/AllThingsSmitty/pen/WjZVjo -->
+
+      <h1> Login </h1>
+      <div class="box">
+        <div class="cb-container">
+          <div class="round blueRound">
+            <input type="checkbox" name="student" id="student" class="scelta" >
+            <label for="checkbox"onclick="loginStudente();"></label>
+          </div>
+          <p>Studente</p>
+          </div>
+          <div class="cb-container">
+          <div class="round blueRound">
+            <input type="checkbox" name="offerer" checked id="offerer" class="scelta">
+            <label for="checkbox"></label>
+          </div>
+          <p>Offerente</p>
+        </div>
+      </div>
+      
+      <div class="inserimentoCampi">
+        <h2>Email</h2>
+        <input type="email" placeholder="Inserisci l'email" name="email" id="email" class="text">
+        <br>
+        <h2>Password</h2>
+        <input type="password" placeholder="Inserisci la password" name="password" id="password" class="text">
+      </div>
+      
+      <br>
+      <div class="PswDim">
+        <p style="text-decoration: underline; cursor: pointer;" onclick="funzNonImplementata();">Password dimenticata?</p2>
+      </div>
+      
+      <button type="submit" id="btn" class="button blueButton">Login</button>
+    </form>
+    <br>
+    <button type="submit" id="btn2" class="button greyButton">Registrati</button>
+    </div>
+
+    <img src="StayBusy.png" width="50" height="50" id="logo" />
+    
+    <script>
+      const form = document.getElementById('form');
+
+      function loginStudente(){
+        alert("Attenzione, funzionalità non ancora implementata. E' disponibile solamente il front-end.");
+        
+        location.replace("../loginStudente");
+      }
+
+      function funzNonImplementata(){
+        alert("Funzionalità non ancora implementata.");
+      }
+  
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+  
+        const prePayload = new FormData(form);
+        const payload = new URLSearchParams(prePayload);
+        console.log([...payload]);
+        
+        var checkboxesList = document.getElementsByClassName("scelta");
+          fetch('../api/offerer/login',{
+          method : "POST",
+          body : payload
+        })
+        .then(res => {
+          return res.json().then(data => {
+              console.log(data);
+            if(data.message === 'OK'){
+              location.replace("../homepage?token="+data.token+"&email="+data.email);
+            }else{
+              alert("Attenzione, credenziali errate");
+            }
+          })
+        })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+        }
+      )
+      
+      btn2.addEventListener('click', function(e){
+      e.preventDefault();
+
+      location.replace("../registration")
+      })
+    </script>
+    
+</body>
+</html>
