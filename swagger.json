@@ -523,7 +523,7 @@
                 "description" : {"type" : "string", "default" : ""}
             }
         },
-        "Announcement": {
+        "Announcements": {
             "required": [
                 "title"
             ],
