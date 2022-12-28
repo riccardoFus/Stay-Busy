@@ -514,7 +514,7 @@
                 "description" : {"type" : "string", "default" : ""}
             }
         },
-        "Announcements": {
+        "Announcement": {
             "required": [
                 "title"
             ],
