@@ -17,18 +17,8 @@ const newOfferer = (req, res, next) => {
     var idtelegram = req.body.idtelegram;
     var description = req.body.description;
 
-    if(typeofuser == "true"){
-        return res.json({message : "Wrong type of user"});
-    }
-    if(termsaccepted == "false"){
-        return res.json({message : "You need to accept the Terms & Conditions"})
-    }
-    if(password != confirmationpassword){
-        return res.json({message : "Two inserted password are not equal"});
-    }
-    
-    if(!checkPasswordRequirements(password)){
-        return res.json({message : "Wrong password"});
+    if(typeofuser == "true" || termsaccepted == "false" || password != confirmationpassword || !checkPasswordRequirements(password)){
+        return res.status(406).json({message : "WRONG CREDENTIALS"});
     }
 
     Offerer.findOne({email : req.body.email}, (err, data) => {
@@ -44,8 +34,8 @@ const newOfferer = (req, res, next) => {
                 relatedStudents : []
             })
             newOfferer.save((err, data) => {
-                if(err) return res.json({Error : err});
-                return res.json({message : "OK"});
+                if(err) return res.status(400).json({message : "NOT OK"});
+                return res.status(200).json({message : "OK"});
             })
         }else{
             if(err) return res.json("Something went wrong, please try again: " + err);

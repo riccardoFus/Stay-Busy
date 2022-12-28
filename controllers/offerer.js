@@ -73,14 +73,14 @@ const setPassword = (req, res, next) => {
     let newPasswordConfirm = req.body.newnew;
 
     if(newPassword !== newPasswordConfirm){
-        return res.json({message : "Two new password are not equal"});
+        return res.status(400).json({message : "BAD REQUEST"});
     }
 
     Offerer.findOneAndUpdate({email : email, password : oldPassword},{password : newPassword}, {new: true}, function(err, response) {
         if (err || !response) {
-            return res.json({message : "NOT OK"});
+            return res.status(404).json({message : "NOT OK"});
         } else {
-            return res.json({message : "OK"});
+            return res.status(200).json({message : "OK"});
         }});
 }
 

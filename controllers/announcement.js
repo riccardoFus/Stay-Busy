@@ -3,8 +3,8 @@ const Student = require("../models/student");
 
 const getAllAnnouncementByEmail = (req, res, next) => {
     Announcement.find({offereremail : req.query.email}, (err, data) => {
-        if(err || !data) return res.json({message : "NOT OK"});
-        return res.json(data);
+        if(err || !data) return res.status(404).json({message : "NOT OK"});
+        return res.status(200).json(data);
     })
 }
 
@@ -65,8 +65,8 @@ const newAnnouncement = (req, res, next) => {
                 offereremail : req.body.offereremail
             })
             newAnnouncement.save((err, data) => {
-                if(err || !data) return res.json({message : "NOT OK"});
-                return res.json({message : "OK"});
+                if(err || !data) return res.status(404).json({message : "NOT OK"});
+                return res.status(200).json({message : "OK"});
             })
         }else{
             if(err || !data) return res.json({message : "NOT OK"});
@@ -78,8 +78,8 @@ const newAnnouncement = (req, res, next) => {
 
 const deleteAllAnnouncementByEmail = (req, res, next) => {
     Announcement.deleteMany({offereremail : req.query.email}, (err, data) => {
-        if(err) return res.json({message : "NOT OK"});
-        return res.json({message : "OK"});
+        if(err) return res.status(404).json({message : "NOT OK"});
+        return res.status(200).json({message : "OK"});
     })
 };
 

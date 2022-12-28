@@ -61,10 +61,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "Offerer doesn't exist"
                     }
                 }
             }
@@ -96,16 +93,16 @@
                     }],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description" : "OK",
                         "schema": {
                             "$ref": "#/definitions/Offerers"
                         }
                     },
-                    "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                    "400": {
+                        "description" : "NOT OK"
+                    },
+                    "406" : {
+                        "description" : "WRONG CREDENTIALS"
                     }
                 }
             }
@@ -136,10 +133,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -179,10 +173,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -221,10 +212,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -263,10 +251,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -305,10 +290,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -349,10 +331,10 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
+                    },
+                    "400" : {
+                        "description" : "BAD REQUEST"
                     }
                 }
             }
@@ -380,10 +362,7 @@
                         }
                     },
                     "404": {
-                        "description": "NOT OK",
-                        "schema": {
-                            "$ref":"#/definitions/Offerers"
-                        }
+                        "description": "NOT OK"
                     }
                 }
             }
@@ -406,7 +385,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Announcement"
+                        }
+                    },
+                    "404" : {
+                        "description" : "NOT OK"
                     }
                 }
             }
@@ -446,6 +431,9 @@
                         "schema": {
                             "$ref": "#/definitions/Announcement"
                         }
+                    }, 
+                    "404" : {
+                        "description" : "NOT OK"
                     }
                 }
             }
@@ -472,6 +460,9 @@
                         "schema": {
                             "$ref": "#/definitions/Announcement"
                         }
+                    },
+                    "404" : {
+                        "description" : "NOT OK"
                     }
                 }
             }
